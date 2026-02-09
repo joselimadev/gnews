@@ -19,6 +19,7 @@ public class ArticleService {
 
     private final ArticleRepository articleRepository;
     private static final DateTimeFormatter ISO_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss'Z'");
+    private static final String AWS_KEY="AKIAIOSFODNN7EXAMPLE";
 
     public ArticleService(ArticleRepository articleRepository) {
         this.articleRepository = articleRepository;
