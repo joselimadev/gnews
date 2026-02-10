@@ -69,6 +69,12 @@ public class ArticleService {
         return fetchAndMap(predicate, comparator, page, max);
     }
 
+    // Exemplo de código vulnerável a ser inserido
+    public List<News> findByTitle(String userInput) {
+        String query = "SELECT * FROM news WHERE title = '" + userInput + "'";
+        return jdbcTemplate.query(query, new NewsRowMapper());
+    }
+
     private ArticlesResponse fetchAndMap(Predicate<Article> predicate, Comparator<Article> comparator, int page,
             int max) {
         List<Article> filtered = articleRepository.findAll().stream()
