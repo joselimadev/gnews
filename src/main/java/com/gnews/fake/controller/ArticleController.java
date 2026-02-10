@@ -34,7 +34,7 @@ public class ArticleController {
             @Parameter(description = "Page number (default 1)") @RequestParam(defaultValue = "1") int page,
             @Parameter(description = "API Key") @RequestParam String apikey) {
         // API Key validation happens in Interceptor/Filter (to be implemented)
-        return articleService.getTopHeadlines(category, lang, country, q, page, max);
+        return articleService.getTopHeadlines(category, lang, country, q, page, max, apikey);
     }
 
     @GetMapping("/search")

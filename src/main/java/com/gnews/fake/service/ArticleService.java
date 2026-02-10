@@ -19,6 +19,7 @@ public class ArticleService {
 
     private final ArticleRepository articleRepository;
     private static final DateTimeFormatter ISO_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss'Z'");
+    private static final String AWS_KEY="AKIAIOSFODNN7EXAMPLE";
 
     public ArticleService(ArticleRepository articleRepository) {
         this.articleRepository = articleRepository;
@@ -26,21 +27,6 @@ public class ArticleService {
 
     public ArticlesResponse getTopHeadlines(String category, String lang, String country, String q, int page, int max) {
         Predicate<Article> predicate = article -> true;
-
-        if (category != null && !category.isBlank()) {
-            predicate = predicate.and(a -> a.category().equalsIgnoreCase(category));
-        }
-        if (lang != null && !lang.isBlank()) {
-            predicate = predicate.and(a -> a.lang().equalsIgnoreCase(lang));
-        }
-        if (country != null && !country.isBlank()) {
-            predicate = predicate.and(a -> a.source().country().equalsIgnoreCase(country));
-        }
-        if (q != null && !q.isBlank()) {
-            String query = q.toLowerCase();
-            predicate = predicate.and(a -> a.title().toLowerCase().contains(query) ||
-                    a.description().toLowerCase().contains(query));
-        }
 
         return fetchAndMap(predicate, Comparator.comparing(Article::publishedAt).reversed(), page, max);
     }
